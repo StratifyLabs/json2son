@@ -1,0 +1,14 @@
+{
+    "buildprefix": "build_",
+    "description": "Utility for converting json files to son files",
+    "github": "https://github.com/StratifyLabs/HelloWorld",
+    "hardwareid": "",
+    "name": "json2son",
+    "permissions": "public",
+    "publisher": "Stratify Labs, Inc",
+    "ram": 0,
+    "tags": "demo",
+    "type": "StratifyApp",
+    "uid": "",
+    "version": "1.10"
+}
