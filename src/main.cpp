@@ -122,7 +122,7 @@ int json2son_recursive(const ConstString & key, const JsonValue & value, Son & o
 			p.error("key %s is invalid", key.str());
 			return -1;
 		case JsonValue::STRING: return output.write(key, value.to_string());
-		case JsonValue::INTEGER: return output.write(key, value.to_integer());
+		case JsonValue::INTEGER: return output.write(key, (s32)value.to_integer());
 		case JsonValue::TRUE: return output.write(key, true);
 		case JsonValue::FALSE: return output.write(key, false);
 		case JsonValue::REAL: return output.write(key, value.to_real());

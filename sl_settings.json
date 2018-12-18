@@ -1,0 +1,18 @@
+{
+   "description": "Utility for converting json files to son files",
+   "github": "https://github.com/StratifyLabs/HelloWorld",
+   "name": "json2son",
+   "permissions": "public",
+   "publisher": "Stratify Labs, Inc",
+   "tags": "demo",
+   "type": "app",
+   "uid": "",
+   "version": "1.10",
+   "hardwaredId": "",
+   "ramSize": 0,
+   "timestamp": 1543118058,
+   "documentId": "g8DhksIrZugIPgRWh2ZN",
+   "buildList": {
+      "L1dEWY2yb2qyEEsJSama": "1.10"
+   }
+}
