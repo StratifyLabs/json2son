@@ -6,8 +6,8 @@
 #ifndef SL_CONFIG_H_
 #define SL_CONFIG_H_
 
-#define SL_CONFIG_VERSION_STRING "1.10"
-#define SL_CONFIG_VERSION_BCD 0x10A
+#define SL_CONFIG_VERSION_STRING "1.12"
+#define SL_CONFIG_VERSION_BCD 0x10C
 #define SL_CONFIG_DOCUMENT_ID "g8DhksIrZugIPgRWh2ZN"
 #define SL_CONFIG_NAME "json2son"
 #define SL_CONFIG_TYPE "app"

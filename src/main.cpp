@@ -3,13 +3,14 @@
 #include <sapi/sys.hpp>
 #include <sapi/var.hpp>
 #include <sapi/fmt.hpp>
-
+#include <sapi/son.h>
 
 static Printer p;
 
 static int json2son(const String & input, const String & output);
 static int json2son_recursive(const ConstString & key, const JsonValue & value, Son & output);
 static int son2json(const String & input, const String & output);
+
 
 int main(int argc, char * argv[]){
 	Cli cli(argc, argv);
@@ -19,17 +20,11 @@ int main(int argc, char * argv[]){
 	String input;
 	String output;
 
-	if( cli.is_option("-in") ){
-		input = cli.get_option_argument("-in");
-	} else {
-		p.error("must specify -in <filename>");
-		exit(1);
-	}
+	input = cli.get_option("input");
+	output = cli.get_option("output");
 
-	if( cli.is_option("-out") ){
-		output = cli.get_option_argument("-out");
-	} else {
-		p.error("must specify -o <filename>");
+	if( input.is_empty() || output.is_empty() ){
+		p.key("usage", "json2son --input=<input file> --output=<otuput_file>");
 		exit(1);
 	}
 
@@ -46,8 +41,6 @@ int main(int argc, char * argv[]){
 			exit(1);
 		}
 	}
-
-
 
 	return 0;
 }
@@ -125,7 +118,7 @@ int json2son_recursive(const ConstString & key, const JsonValue & value, Son & o
 		case JsonValue::INTEGER: return output.write(key, (s32)value.to_integer());
 		case JsonValue::TRUE: return output.write(key, true);
 		case JsonValue::FALSE: return output.write(key, false);
-		case JsonValue::REAL: return output.write(key, value.to_real());
+		case JsonValue::REAL: return output.write(key, value.to_float());
 		case JsonValue::ZERO: return output.write(key, ConstString());
 		case JsonValue::OBJECT:
 			if(1){
