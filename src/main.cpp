@@ -11,6 +11,11 @@ static int json2son(const String & input, const String & output);
 static int json2son_recursive(const ConstString & key, const JsonValue & value, Son & output);
 static int son2json(const String & input, const String & output);
 
+static int son_to_json_callback(void * context, const char * output){
+	MCU_UNUSED_ARGUMENT(context);
+	printf("%s", output);
+	return 0;
+}
 
 int main(int argc, char * argv[]){
 	Cli cli(argc, argv);
@@ -23,8 +28,8 @@ int main(int argc, char * argv[]){
 	input = cli.get_option("input");
 	output = cli.get_option("output");
 
-	if( input.is_empty() || output.is_empty() ){
-		p.key("usage", "json2son --input=<input file> --output=<otuput_file>");
+	if( input.is_empty() ){
+		p.key("usage", "json2son --input=<input file> [--output=<output_file>]");
 		exit(1);
 	}
 
@@ -35,11 +40,16 @@ int main(int argc, char * argv[]){
 		}
 	}
 
+
 	if( (input.find(".son") != String::npos) && (output.find(".json") != String::npos) ){
 		if( son2json(input, output) < 0){
 			//failed
 			exit(1);
 		}
+	}
+
+	if( input.find(".son") && output == "false" ){
+		son2json(input, String());
 	}
 
 	return 0;
@@ -60,10 +70,14 @@ int son2json(const String & input, const String & output){
 		return -1;
 	}
 
-	if( input_son.to_json(output) <  0 ){
-		p.error("failed to convert input to json");
-		p.close_object();
-		return -1;
+	if( output.is_empty() == false ){
+		if( input_son.to_json(output) <  0 ){
+			p.error("failed to convert input to json");
+			p.close_object();
+			return -1;
+		}
+	} else {
+		input_son.to_json(son_to_json_callback);
 	}
 
 	p.message("conversion completed successfully");
